@@ -81,4 +81,6 @@ public class GenericRepository {
         addresses.add(address);
         return addresses;
     }
+
+    // TODO make a new repository for each entity
 }
