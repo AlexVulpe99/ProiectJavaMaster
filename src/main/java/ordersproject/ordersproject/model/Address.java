@@ -16,14 +16,20 @@ public class Address {
         this.customer = customer;
     }
 
-    public Address(String streetName, String cityName, String streetNumber) {
+    public Address(int id, String streetName, String cityName, String streetNumber, Customer customer) {
+        this.id = id;
         this.streetName = streetName;
         this.cityName = cityName;
         this.streetNumber = streetNumber;
+        this.customer = customer;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStreetName() {

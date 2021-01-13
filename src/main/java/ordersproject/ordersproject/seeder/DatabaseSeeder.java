@@ -24,11 +24,16 @@ public class DatabaseSeeder {
     public void seed(ContextRefreshedEvent event) {
         // First seed the customers and addresses in this order since they are dependent
         this.seedCustomers();
+        System.out.println("SEEDED CUSTOMERS");
         this.seedAddresses();
+        System.out.println("SEEDED ADDRESSES");
         // Then seed the dishes, menus and orders in that order since they are dependent
         this.seedDishes();
+        System.out.println("SEEDED DISHES");
         this.seedMenus();
+        System.out.println("SEEDED MENUS");
         this.seedOrders();
+        System.out.println("SEEDED ORDERS");
     }
 
     public void seedDishes() {
@@ -60,8 +65,9 @@ public class DatabaseSeeder {
         var addresses = this.addressRepository.getAllAddresses();
         // If the table is empty, seed the table
         if (addresses == null || addresses.size() == 0){
-            this.addressRepository.addAddress(new Address("Main street", "Bucharest", "34", this.customerRepository.getCustomerById(1)));
-            this.addressRepository.addAddress(new Address("Second street", "Bucharest", "54", this.customerRepository.getCustomerById(2)));
+            var customers = this.customerRepository.getAllCustomers();
+            this.addressRepository.addAddress(new Address("Main street", "Bucharest", "34", customers.get(0)));
+            this.addressRepository.addAddress(new Address("Second street", "Bucharest", "54", customers.get(1)));
         }
     }
 
@@ -70,10 +76,11 @@ public class DatabaseSeeder {
         var menus = this.menuRepository.getAllMenus();
         // If the table is empty, seed the table
         if (menus == null || menus.size() == 0){
+            var dishes = this.dishRepository.getAllDishes();
             this.menuRepository.addMenu((new Menu("Menu Beef", "Burger, fries and cola", 15)));
-            this.menuRepository.addDishToMenu(1,1);// Burger
-            this.menuRepository.addDishToMenu(1,2);// Fries
-            this.menuRepository.addDishToMenu(1,4);// Cola
+            this.menuRepository.addDishToMenu(1,dishes.get(0).getId());// Burger
+            this.menuRepository.addDishToMenu(1,dishes.get(1).getId());// Fries
+            this.menuRepository.addDishToMenu(1,dishes.get(3).getId());// Cola
         }
     }
 
@@ -82,9 +89,13 @@ public class DatabaseSeeder {
         var orders = this.orderRepository.getAllOrders();
         // If the table is empty, seed the table
         if (orders == null || orders.size() == 0){
-            this.orderRepository.addOrder(new Order(this.customerRepository.getCustomerById(1), this.addressRepository.getAddressById(1), "cash"));
-            this.orderRepository.addMenuToOrder(1,1);
-            this.orderRepository.addDishToOrder(1,5); //Sprite
+            var customers = this.customerRepository.getAllCustomers();
+            var addresses = this.addressRepository.getAllAddresses();
+            var menus = this.menuRepository.getAllMenus();
+            var dishes = this.dishRepository.getAllDishes();
+            this.orderRepository.addOrder(new Order(customers.get(0), addresses.get(0), "cash"));
+            this.orderRepository.addMenuToOrder(1,menus.get(0).getId());
+            this.orderRepository.addDishToOrder(1,dishes.get(4).getId()); //Sprite
         }
     }
 

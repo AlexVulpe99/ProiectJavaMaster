@@ -26,8 +26,20 @@ public class Menu {
         this.dishList = dishList;
     }
 
+    public Menu(int id, String name, String description, double price, List<Dish> dishList) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.dishList = dishList;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -30,8 +30,21 @@ public class Order {
         this.menuList = menuList;
     }
 
+    public Order(int id, Customer customer, Address address, double totalPrice, List<Dish> dishList, List<Menu> menuList) {
+        this.id = id;
+        this.customer = customer;
+        this.address = address;
+        this.totalPrice = totalPrice;
+        this.dishList = dishList;
+        this.menuList = menuList;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Customer getCustomer() {

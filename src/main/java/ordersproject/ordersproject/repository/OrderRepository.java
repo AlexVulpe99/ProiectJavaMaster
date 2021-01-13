@@ -22,6 +22,7 @@ public class OrderRepository {
         }
         catch (Exception e){
             // TODO error management
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -33,6 +34,7 @@ public class OrderRepository {
         }
         catch (Exception e){
             // TODO error management
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -44,6 +46,7 @@ public class OrderRepository {
         }
         catch (Exception e){
             // TODO error management
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -69,6 +72,7 @@ public class OrderRepository {
         }
         catch (Exception e){
             // TODO error management
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -79,6 +83,7 @@ public class OrderRepository {
         }
         catch (Exception e){
             // TODO error management
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -89,6 +94,7 @@ public class OrderRepository {
         }
         catch (Exception e){
             // TODO error management
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -100,6 +106,7 @@ public class OrderRepository {
         }
         catch (Exception e){
             // TODO error management
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -111,6 +118,7 @@ public class OrderRepository {
         }
         catch (Exception e){
             // TODO error management
+            System.out.println(e.getMessage());
             return false;
         }
     }

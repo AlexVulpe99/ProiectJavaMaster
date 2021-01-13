@@ -25,6 +25,8 @@ public class CustomerService {
         return customerRepository.getAllCustomers();
     }
 
+    public Customer getCustomerById(int id) { return customerRepository.getCustomerById(id); }
+
     public boolean addCustomer(Customer customer){
         return customerRepository.addCustomer(customer);
     }
@@ -34,5 +36,7 @@ public class CustomerService {
     public boolean addAddressToCustomer(Address address) { return addressRepository.addAddress(address); }
 
     public List<Address> getAllAddresses() { return addressRepository.getAllAddresses(); }
+
+    public Address getAddressById(int id) { return addressRepository.getAddressById(id); }
 
 }
