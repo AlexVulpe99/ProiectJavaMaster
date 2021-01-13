@@ -15,11 +15,11 @@ public class CustomerController {
 
     @GetMapping("/get")
     public List<Customer> getCustomers() {
-        return customerService.getCustomers();
+        return customerService.getAllCustomers();
     }
 
     @PostMapping("/add")
-    public List<Customer> addNewCustomer(@RequestBody Customer customer){
+    public boolean addNewCustomer(@RequestBody Customer customer){
         return customerService.addCustomer(customer);
     }
 

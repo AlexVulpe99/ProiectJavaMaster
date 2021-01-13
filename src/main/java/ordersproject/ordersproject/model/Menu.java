@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
+    private int id;
     private String name;
     private String description;
     private double price;
@@ -23,6 +24,10 @@ public class Menu {
         this.description = description;
         this.price = price;
         this.dishList = dishList;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

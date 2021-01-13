@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+    private int id;
     private Customer customer;
     private Address address;
     private double totalPrice;
@@ -27,6 +28,10 @@ public class Order {
         this.paymentMethod = paymentMethod;
         this.dishList = dishList;
         this.menuList = menuList;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Customer getCustomer() {

@@ -1,6 +1,7 @@
 package ordersproject.ordersproject.model;
 
 public class Dish {
+    private int id;
     private String name;
     private double price;
     private String description;
@@ -11,6 +12,10 @@ public class Dish {
         this.name = name;
         this.price = price;
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

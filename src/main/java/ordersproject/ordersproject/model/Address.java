@@ -1,6 +1,7 @@
 package ordersproject.ordersproject.model;
 
 public class Address {
+    private int id;
     private String streetName;
     private String cityName;
     private String streetNumber;
@@ -13,6 +14,16 @@ public class Address {
         this.cityName = cityName;
         this.streetNumber = streetNumber;
         this.customer = customer;
+    }
+
+    public Address(String streetName, String cityName, String streetNumber) {
+        this.streetName = streetName;
+        this.cityName = cityName;
+        this.streetNumber = streetNumber;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getStreetName() {
