@@ -4,13 +4,13 @@ import ordersproject.ordersproject.model.Address;
 import ordersproject.ordersproject.model.Customer;
 import ordersproject.ordersproject.querys.AddressQuerys;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -20,7 +20,7 @@ public class AddressRepository {
 
     public List<Address> getAllAddresses() {
         try{
-            return jdbcTemplate.query(AddressQuerys.GET_ALL_ADDRESSES, new BeanPropertyRowMapper<>(Address.class));
+            return jdbcTemplate.query(AddressQuerys.GET_ALL_ADDRESSES, new AddressRowMapper());
         }
         catch (Exception e){
             // TODO error management
@@ -67,7 +67,7 @@ public class AddressRepository {
 
     public Address getAddressById(int id) {
         try{
-            var queryResult = jdbcTemplate.query(AddressQuerys.GET_ADDRESS_BY_ID, new BeanPropertyRowMapper<>(Address.class), id);
+            var queryResult = jdbcTemplate.query(AddressQuerys.GET_ADDRESS_BY_ID, new AddressRowMapper(), id);
             // return the first object, since address id should be unique
             if (queryResult != null && queryResult.size() > 0)
                 return queryResult.get(0);
@@ -81,12 +81,32 @@ public class AddressRepository {
 
     public List<Address> getAddressesByCustomerId(int id) {
         try{
-            return jdbcTemplate.query(AddressQuerys.GET_ADDRESSES_BY_CUSTOMER_ID, new BeanPropertyRowMapper<>(Address.class), id);
+            return jdbcTemplate.query(AddressQuerys.GET_ADDRESSES_BY_CUSTOMER_ID, new AddressRowMapper(), id);
         }
         catch (Exception e){
             // TODO error management
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    public class AddressRowMapper implements RowMapper<Address> {
+        @Override
+        public Address mapRow(ResultSet resultSet, int i) throws SQLException {
+            var customer = new Customer(
+                    resultSet.getInt("c.id"),
+                    resultSet.getString("c.firstName"),
+                    resultSet.getString("c.lastName"),
+                    resultSet.getString("c.email"),
+                    resultSet.getString("c.phoneNumber")
+            );
+            return new Address(
+                    resultSet.getInt("a.id"),
+                    resultSet.getString("a.streetName"),
+                    resultSet.getString("a.cityName"),
+                    resultSet.getString("a.streetNumber"),
+                    customer
+            );
         }
     }
 }

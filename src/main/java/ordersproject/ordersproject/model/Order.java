@@ -39,6 +39,13 @@ public class Order {
         this.menuList = menuList;
     }
 
+    public Order(int id, Customer customer, Address address, double totalPrice) {
+        this.id = id;
+        this.customer = customer;
+        this.address = address;
+        this.totalPrice = totalPrice;
+    }
+
     public int getId() {
         return id;
     }

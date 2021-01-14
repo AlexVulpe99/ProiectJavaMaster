@@ -1,14 +1,15 @@
 package ordersproject.ordersproject.repository;
 
-import ordersproject.ordersproject.model.Dish;
-import ordersproject.ordersproject.model.Menu;
-import ordersproject.ordersproject.model.Order;
+import ordersproject.ordersproject.model.*;
 import ordersproject.ordersproject.querys.OrderQuerys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -18,7 +19,7 @@ public class OrderRepository {
 
     public List<Order> getAllOrders() {
         try{
-            return jdbcTemplate.query(OrderQuerys.GET_ALL_ORDERS, new BeanPropertyRowMapper<>(Order.class));
+            return jdbcTemplate.query(OrderQuerys.GET_ALL_ORDERS, new OrderRowMapper());
         }
         catch (Exception e){
             // TODO error management
@@ -53,7 +54,7 @@ public class OrderRepository {
 
     public Order getOrderById(int id) {
         try{
-            var queryResult = jdbcTemplate.query(OrderQuerys.GET_ORDER_BY_ID, new BeanPropertyRowMapper<>(Order.class), id);
+            var queryResult = jdbcTemplate.query(OrderQuerys.GET_ORDER_BY_ID, new OrderRowMapper(), id);
             // return the first object, since order id should be unique
             if (queryResult != null && queryResult.size() > 0)
                 return queryResult.get(0);
@@ -120,6 +121,33 @@ public class OrderRepository {
             // TODO error management
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public class OrderRowMapper implements RowMapper<Order> {
+        @Override
+        public Order mapRow(ResultSet resultSet, int i) throws SQLException {
+            var customer = new Customer(
+                    resultSet.getInt("c.id"),
+                    resultSet.getString("c.firstName"),
+                    resultSet.getString("c.lastName"),
+                    resultSet.getString("c.email"),
+                    resultSet.getString("c.phoneNumber")
+            );
+            var address = new Address(
+                    resultSet.getInt("a.id"),
+                    resultSet.getString("a.streetName"),
+                    resultSet.getString("a.cityName"),
+                    resultSet.getString("a.streetNumber"),
+                    customer
+            );
+            return new Order(
+                    resultSet.getInt("o.id"),
+                    customer,
+                    address,
+                    resultSet.getDouble("o.totalPrice")
+            );
+
         }
     }
 }

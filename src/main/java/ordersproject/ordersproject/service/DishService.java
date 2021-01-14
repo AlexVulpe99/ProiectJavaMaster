@@ -2,7 +2,7 @@ package ordersproject.ordersproject.service;
 
 import ordersproject.ordersproject.model.Dish;
 import ordersproject.ordersproject.model.Order;
-import ordersproject.ordersproject.repository.GenericRepository;
+import ordersproject.ordersproject.repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +12,16 @@ import java.util.List;
 public class DishService {
 
     @Autowired
-    private GenericRepository genericRepository;
+    private DishRepository dishRepository;
 
-    public List<Dish> getDishes(){
-        return genericRepository.getDishes();
-    }
+    public List<Dish> getAllDishes() { return dishRepository.getAllDishes(); }
 
-    public List<Dish> addDish(Dish dish){
-        return genericRepository.addNewDish(dish);
-    }
+    public boolean addDish(Dish dish) { return dishRepository.addDish(dish); }
+
+    public boolean deleteDish(int id) { return dishRepository.deleteDish(id); }
+
+    public Dish getDishById(int id) { return dishRepository.getDishById(id); }
+
+    public boolean updateDish(Dish dish) { return dishRepository.updateDish(dish); }
+
 }

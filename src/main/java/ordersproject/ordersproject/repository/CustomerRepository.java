@@ -3,8 +3,6 @@ package ordersproject.ordersproject.repository;
 import ordersproject.ordersproject.model.Customer;
 import ordersproject.ordersproject.querys.CustomerQuerys;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
