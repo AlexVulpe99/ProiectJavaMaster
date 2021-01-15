@@ -90,6 +90,7 @@ public class CustomerServiceTest {
 
         //arrange
         when(customerRepository.addCustomer(customer)).thenReturn(true);
+        when(customerRepository.getAllCustomers()).thenReturn(Arrays.asList(customer));
         when(addressRepository.addAddress(addresses.get(0))).thenReturn(true);
         when(addressRepository.addAddress(addresses.get(1))).thenReturn(true);
         when(addressRepository.getAddressesByCustomerId(customer.getId())).thenReturn(addresses);
